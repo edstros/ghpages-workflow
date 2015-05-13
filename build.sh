@@ -7,6 +7,12 @@ mkdir public
 # compile jade to html
 ./node_modules/.bin/jade src -P
 cd src
-find . -name "*.html" | cpio -pdvm ../public
+find . -name "*.html" | cpio -pdvm ../public # cpio takes argument and moves html to public
 cd ..
-rm -rf src/**/*.html public/**/_*.html public/_partials
+rm -rf src/*.html src/**/*.html public/**/_*.html public/_partials
+
+#compile sass to css
+./node_modules/.bin/node-sass \
+  --output-style compressed \
+  --source-map-embed \
+  src/_styles/main.scss public/css/main.css
