@@ -6,6 +6,12 @@ module.exports = function(grunt) {
 // started from being copied and pasted from gruntjs.com/getting-started
  grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    autoprefixer: {
+      main:{
+        options: ['>1% in US'],
+        src:' public/css/main.css'
+      }
+    },
     babel: {
       dev: {
         options: {
@@ -56,12 +62,13 @@ module.exports = function(grunt) {
         ]
       }
     },
-//adding the connect thing
+//adding the connect
     connect: {
       server: {
         options: {
-          port: 9001,
-          base: 'public/'
+          port: 9000,
+          base: 'public/',
+          open: true
         }
       }
     },
@@ -134,7 +141,34 @@ module.exports = function(grunt) {
           }
         ]
       }
+    },
+    //adding watch
+    watch: {
+      livereload: {
+        options: {
+          livereload: true,
+        },
+        files: [
+          'public/**/*.js',
+          'public/**/*.html',
+          'public/**/*.css',
+        ]
+      },
+        jade: {
+          files: ['src/**/*.jade'],
+          tasks: ['jade:dev']
+        },
+        sass: {
+          files: ['src/**/*.scss'],
+          tasks: ['sass:dev']
+        },
+        js: {
+          files: ['src/js/**/*.js'],
+          tasks: ['babel:dev']
+        }
+
     }
+
   });
 
   grunt.registerTask('default', []);
@@ -145,6 +179,7 @@ module.exports = function(grunt) {
     'bower_concat',
     'jade:prod',
     'sass:prod',
+    'autoprefixer',
     'uglify',
     'cssmin'
   ]);
@@ -155,7 +190,14 @@ module.exports = function(grunt) {
     'bower_concat',
     'jade:dev',
     'sass:dev',
-    'connect'
+    'autoprefixer'
+
   ]);
+  grunt.registerTask('server', [
+    'build-dev',
+    'connect',
+    'watch'
+  ]);
+
 
 };
