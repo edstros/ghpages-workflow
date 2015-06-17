@@ -1,15 +1,13 @@
-module.exports = function(grunt) {
-
-// this goes through dependencies in package.json and loads them
+module.exports = function (grunt) {
+  // this goes through dependencies in package.json and loads them
   require('load-grunt-tasks')(grunt);
-
-// started from being copied and pasted from gruntjs.com/getting-started
- grunt.initConfig({
+  // started from being copied and pasted from gruntjs.com/getting-started
+  grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     autoprefixer: {
-      main:{
+      main: {
         options: ['>1% in US'],
-        src:' public/css/main.css'
+        src: ' public/css/main.css'
       }
     },
     babel: {
@@ -62,7 +60,7 @@ module.exports = function(grunt) {
         ]
       }
     },
-//adding the connect
+    //adding the connect
     connect: {
       server: {
         options: {
@@ -154,23 +152,20 @@ module.exports = function(grunt) {
           'public/**/*.css',
         ]
       },
-        jade: {
-          files: ['src/**/*.jade'],
-          tasks: ['jade:dev']
-        },
-        sass: {
-          files: ['src/**/*.scss'],
-          tasks: ['sass:dev']
-        },
-        js: {
-          files: ['src/js/**/*.js'],
-          tasks: ['babel:dev']
-        }
-
+      jade: {
+        files: ['src/**/*.jade'],
+        tasks: ['jade:dev']
+      },
+      sass: {
+        files: ['src/**/*.scss'],
+        tasks: ['sass:dev']
+      },
+      js: {
+        files: ['src/js/**/*.js'],
+        tasks: ['babel:dev']
+      }
     }
-
   });
-
   grunt.registerTask('default', []);
   grunt.registerTask('build', [
     'clean',
@@ -191,13 +186,10 @@ module.exports = function(grunt) {
     'jade:dev',
     'sass:dev',
     'autoprefixer'
-
   ]);
   grunt.registerTask('server', [
     'build-dev',
     'connect',
     'watch'
   ]);
-
-
 };
